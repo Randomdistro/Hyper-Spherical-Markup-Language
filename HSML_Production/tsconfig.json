@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "commonjs",
+    "lib": ["ES2020"],
+    "outDir": "./build",
+    "rootDir": "./src",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "moduleResolution": "node",
+    "baseUrl": "./src",
+    "paths": {
+      "@core/*": ["core/*"],
+      "@runtime/*": ["core/runtime/*"],
+      "@language/*": ["core/language/*"],
+      "@math/*": ["core/math/*"],
+      "@tests/*": ["tests/*"],
+      "@demos/*": ["demos/*"],
+      "@tools/*": ["tools/*"],
+      "@types/*": ["types/*"]
+    },
+    "allowJs": true,
+    "declaration": true,
+    "sourceMap": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "build", "dist"]
+} 

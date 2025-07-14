@@ -1,0 +1,66 @@
+<!-- HSML "Hello Sphere" Proof of Concept -->
+<!-- Demonstrates the complete pipeline: HSML → CSSS → ShapeScript → StyleBot -->
+
+<element id="hello-sphere" position="(r:10, θ:π/4, φ:π/2)" material="metallic" behavior="physics">
+    <sphere radius="5" />
+    <material>
+        albedo: [0.8, 0.6, 0.2, 1.0]
+        metallic: 0.9
+        roughness: 0.1
+        emission: [0.1, 0.1, 0.2]
+        matter-state: solid
+    </material>
+    <behavior>
+        physics {
+            force gravity {
+                magnitude: 9.81
+                direction: (r:1, θ:0, φ:0)
+            }
+            constraint spherical_surface {
+                radius: 10
+            }
+            matter-state solid {
+                density: 2700
+                temperature: 293.15
+                pressure: 101325
+            }
+        }
+        animation rotate {
+            duration: 4s
+            easing: ease-in-out
+            keyframes {
+                0% { rotation: (r:0, θ:0, φ:0) }
+                50% { rotation: (r:0, θ:π, φ:π) }
+                100% { rotation: (r:0, θ:0, φ:2π) }
+            }
+        }
+    </behavior>
+</element>
+
+<!-- Environment for lighting and atmosphere -->
+<environment>
+    <lighting>
+        ambient {
+            intensity: 0.3
+            color: [0.1, 0.1, 0.2]
+        }
+        directional {
+            direction: (r:1, θ:π/4, φ:π/4)
+            intensity: 0.8
+            color: [1.0, 0.95, 0.8]
+        }
+    </lighting>
+    <atmosphere {
+        density: 0.1
+        scattering: 0.3
+        absorption: 0.1
+    }
+</environment>
+
+<!-- Performance optimization settings -->
+<optimization>
+    <4-corner-optimization enabled="true" />
+    <adaptive-quality enabled="true" target-fps="60" />
+    <spatial-indexing enabled="true" />
+    <parallel-rendering enabled="true" />
+</optimization> 

@@ -1,0 +1,89 @@
+/* HSML "Hello Sphere" CSSS Styling */
+/* Cascading Spherical Style Sheets for the proof of concept */
+
+/* Material definitions */
+material metallic {
+    albedo: [0.8, 0.6, 0.2, 1.0]
+    metallic: 0.9
+    roughness: 0.1
+    emission: [0.1, 0.1, 0.2]
+    matter-state: solid
+}
+
+/* Hello sphere animations */
+#hello-sphere {
+    animation rotate {
+        duration: 4s
+        easing: ease-in-out
+        keyframes {
+            0% { rotation: (r:0, θ:0, φ:0) }
+            50% { rotation: (r:0, θ:π, φ:π) }
+            100% { rotation: (r:0, θ:0, φ:2π) }
+        }
+    }
+    
+    animation pulse {
+        duration: 2s
+        easing: ease-in-out
+        keyframes {
+            0% { scale: (r:1, θ:1, φ:1) }
+            50% { scale: (r:1.1, θ:1.1, φ:1.1) }
+            100% { scale: (r:1, θ:1, φ:1) }
+        }
+    }
+}
+
+/* Environment lighting */
+environment {
+    lighting {
+        ambient {
+            intensity: 0.3
+            color: [0.1, 0.1, 0.2]
+        }
+        directional {
+            direction: (r:1, θ:π/4, φ:π/4)
+            intensity: 0.8
+            color: [1.0, 0.95, 0.8]
+        }
+    }
+    
+    atmosphere {
+        density: 0.1
+        scattering: 0.3
+        absorption: 0.1
+    }
+}
+
+/* Performance optimizations */
+optimization {
+    4-corner-optimization {
+        enabled: true
+        precision: 1e-10
+    }
+    
+    adaptive-quality {
+        enabled: true
+        target-fps: 60
+        min-quality: 0.25
+        max-quality: 1.25
+    }
+    
+    spatial-indexing {
+        enabled: true
+        grid-size: 10
+    }
+    
+    parallel-rendering {
+        enabled: true
+        worker-count: auto
+    }
+}
+
+/* Matter state definitions */
+matter-state solid {
+    density: 2700
+    temperature: 293.15
+    pressure: 101325
+    thermal-conductivity: 200
+    thermal-expansion: 2.3e-5
+} 

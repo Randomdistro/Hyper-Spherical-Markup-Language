@@ -1,0 +1,135 @@
+// HSML "Hello Sphere" ShapeScript Behavior
+// Defines physics and interactions for the proof of concept
+
+// Physics behavior for the hello sphere
+physics {
+    // Gravity force
+    force gravity {
+        magnitude: 9.81
+        direction: (r:1, θ:0, φ:0)
+        type: constant
+    }
+    
+    // Spherical surface constraint
+    constraint spherical_surface {
+        radius: 10
+        type: hard
+        restitution: 0.8
+        friction: 0.3
+    }
+    
+    // Matter state properties
+    matter-state solid {
+        density: 2700
+        temperature: 293.15
+        pressure: 101325
+        thermal-conductivity: 200
+        thermal-expansion: 2.3e-5
+        youngs-modulus: 70e9
+        poisson-ratio: 0.33
+    }
+}
+
+// Animation behavior
+animation rotate {
+    duration: 4s
+    easing: ease-in-out
+    loop: true
+    keyframes {
+        0% { rotation: (r:0, θ:0, φ:0) }
+        50% { rotation: (r:0, θ:π, φ:π) }
+        100% { rotation: (r:0, θ:0, φ:2π) }
+    }
+}
+
+animation pulse {
+    duration: 2s
+    easing: ease-in-out
+    loop: true
+    keyframes {
+        0% { scale: (r:1, θ:1, φ:1) }
+        50% { scale: (r:1.1, θ:1.1, φ:1.1) }
+        100% { scale: (r:1, θ:1, φ:1) }
+    }
+}
+
+// Interaction behavior
+interaction click {
+    trigger: mouse-click
+    action: {
+        // Toggle rotation animation
+        toggle-animation: rotate
+        // Add impulse force
+        apply-impulse: (r:5, θ:π/4, φ:π/4)
+        // Change material properties
+        update-material: {
+            emission: [0.3, 0.3, 0.5]
+            metallic: 0.7
+        }
+    }
+}
+
+interaction hover {
+    trigger: mouse-hover
+    action: {
+        // Scale up slightly
+        scale: (r:1.05, θ:1.05, φ:1.05)
+        // Increase emission
+        update-material: {
+            emission: [0.2, 0.2, 0.4]
+        }
+    }
+}
+
+// Matter state transitions
+matter-state-transition solid-to-liquid {
+    trigger: temperature > 933.15  // Melting point of aluminum
+    action: {
+        update-matter-state: liquid
+        update-material: {
+            metallic: 0.5
+            roughness: 0.8
+        }
+        update-physics: {
+            density: 2380
+            viscosity: 1.2e-3
+        }
+    }
+}
+
+matter-state-transition liquid-to-gas {
+    trigger: temperature > 2740  // Boiling point of aluminum
+    action: {
+        update-matter-state: gas
+        update-material: {
+            metallic: 0.0
+            roughness: 1.0
+            emission: [0.8, 0.6, 0.2]
+        }
+        update-physics: {
+            density: 2.7
+            pressure: 101325
+        }
+    }
+}
+
+// Performance optimization hints
+optimization {
+    spherical-optimization {
+        enabled: true
+        precision: 1e-10
+        max-iterations: 1000
+    }
+    
+    physics-optimization {
+        enabled: true
+        time-step: 1/60
+        solver-iterations: 10
+    }
+    
+    rendering-optimization {
+        enabled: true
+        lod-levels: 3
+        culling: enabled
+    }
+} 

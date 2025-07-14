@@ -1,0 +1,101 @@
+<!DOCTYPE hsml>
+<hsml-document 
+    viewer-distance="650mm" 
+    coordinate-system="spherical"
+    physics-engine="enabled"
+    matter-states="solid,liquid,gas,plasma"
+    performance-target="60fps"
+    steradian-culling="0.0001">
+
+    <!-- Main 3D Viewport -->
+    <hsml-viewport 
+        id="main-viewport"
+        r="1000" 
+        theta="0" 
+        phi="0"
+        background="radial-gradient(#000033, #000000)"
+        fog="exponential"
+        fog-density="0.0001"
+        camera-controls="enabled"
+        collision-detection="enabled">
+
+        <!-- Welcome Sphere -->
+        <hsml-sphere 
+            id="welcome-sphere"
+            r="200" 
+            theta="1.57" 
+            phi="0"
+            radius="50"
+            material="glowing"
+            matter-state="plasma"
+            color="#00ffff"
+            glow-radius="100deg"
+            behavior="interactive"
+            hover-effect="scale"
+            click-effect="explode">
+        </hsml-sphere>
+
+        <!-- Welcome Text -->
+        <hsml-text 
+            id="welcome-text"
+            r="300" 
+            theta="1.0" 
+            phi="0"
+            billboard="true"
+            font-size="16deg"
+            color="#ffffff"
+            glow="enabled"
+            glow-color="#00ffff"
+            behavior="interactive">
+            Welcome to HSML!
+        </hsml-text>
+
+        <!-- Info Text -->
+        <hsml-text 
+            id="info-text"
+            r="350" 
+            theta="1.2" 
+            phi="0"
+            billboard="true"
+            font-size="8deg"
+            color="#cccccc"
+            behavior="interactive">
+            Click the sphere to explore
+        </hsml-text>
+
+        <!-- Lighting -->
+        <hsml-light 
+            id="main-light"
+            type="point"
+            r="0" 
+            theta="0" 
+            phi="0"
+            intensity="1.0"
+            color="#ffffff"
+            cast-shadows="enabled">
+        </hsml-light>
+
+        <hsml-light 
+            id="ambient-light"
+            type="ambient"
+            intensity="0.3"
+            color="#444444">
+        </hsml-light>
+
+        <!-- Particle System -->
+        <hsml-particle-system 
+            id="ambient-particles"
+            r="100" 
+            theta="0" 
+            phi="0"
+            particle-count="500"
+            emission-rate="5"
+            particle-lifetime="3s"
+            particle-velocity="spherical"
+            particle-color="#ffffff"
+            particle-size="0.05deg"
+            behavior="ambient">
+        </hsml-particle-system>
+
+    </hsml-viewport>
+</hsml-document> 

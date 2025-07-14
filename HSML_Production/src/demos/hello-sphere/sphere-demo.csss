@@ -1,0 +1,283 @@
+/* HSML Framework Demo - CSSS Styling */
+/* Cascading Spherical Style Sheets for the sphere demo */
+
+/* Global material definitions */
+material metallic {
+    albedo: [0.8, 0.6, 0.2, 1.0]
+    metallic: 0.9
+    roughness: 0.1
+    emission: [0.1, 0.1, 0.2]
+    matter-state: solid
+}
+
+material emissive {
+    albedo: [0.2, 0.8, 0.9, 1.0]
+    metallic: 0.1
+    roughness: 0.8
+    emission: [0.3, 0.7, 0.9]
+    matter-state: solid
+}
+
+material liquid {
+    albedo: [0.1, 0.7, 0.9, 0.8]
+    metallic: 0.0
+    roughness: 0.2
+    emission: [0.0, 0.2, 0.4]
+    matter-state: liquid
+}
+
+material plasma {
+    albedo: [0.9, 0.3, 0.1, 0.6]
+    metallic: 0.0
+    roughness: 1.0
+    emission: [0.8, 0.2, 0.1]
+    matter-state: plasma
+}
+
+material particle {
+    albedo: [0.5, 0.5, 0.5, 0.3]
+    metallic: 0.0
+    roughness: 0.5
+    emission: [0.2, 0.2, 0.2]
+    matter-state: gas
+}
+
+/* Main sphere animations */
+#main-sphere {
+    animation rotate {
+        duration: 4s
+        easing: ease-in-out
+        keyframes {
+            0% { rotation: (r:0, θ:0, φ:0) }
+            50% { rotation: (r:0, θ:π, φ:π) }
+            100% { rotation: (r:0, θ:0, φ:2π) }
+        }
+    }
+    
+    animation pulse {
+        duration: 2s
+        easing: ease-in-out
+        keyframes {
+            0% { scale: (r:1, θ:1, φ:1) }
+            50% { scale: (r:1.1, θ:1.1, φ:1.1) }
+            100% { scale: (r:1, θ:1, φ:1) }
+        }
+    }
+}
+
+/* Satellite orbit animation */
+#satellite {
+    animation orbit {
+        duration: 8s
+        easing: linear
+        keyframes {
+            0% { position: (r:25, θ:π/3, φ:0) }
+            25% { position: (r:25, θ:π/3, φ:π/2) }
+            50% { position: (r:25, θ:π/3, φ:π) }
+            75% { position: (r:25, θ:π/3, φ:3π/2) }
+            100% { position: (r:25, θ:π/3, φ:2π) }
+        }
+    }
+    
+    animation glow {
+        duration: 3s
+        easing: ease-in-out
+        keyframes {
+            0% { emission: [0.3, 0.7, 0.9] }
+            50% { emission: [0.5, 0.9, 1.0] }
+            100% { emission: [0.3, 0.7, 0.9] }
+        }
+    }
+}
+
+/* Liquid sphere fluid dynamics */
+#liquid-sphere {
+    animation flow {
+        duration: 6s
+        easing: ease-in-out
+        keyframes {
+            0% { 
+                position: (r:20, θ:π/6, φ:π)
+                scale: (r:1, θ:1, φ:1)
+            }
+            50% { 
+                position: (r:22, θ:π/4, φ:3π/2)
+                scale: (r:1.2, θ:0.8, φ:1.1)
+            }
+            100% { 
+                position: (r:20, θ:π/6, φ:π)
+                scale: (r:1, θ:1, φ:1)
+            }
+        }
+    }
+    
+    animation liquid-shimmer {
+        duration: 4s
+        easing: ease-in-out
+        keyframes {
+            0% { albedo: [0.1, 0.7, 0.9, 0.8] }
+            50% { albedo: [0.2, 0.8, 1.0, 0.9] }
+            100% { albedo: [0.1, 0.7, 0.9, 0.8] }
+        }
+    }
+}
+
+/* Plasma cloud dynamics */
+#gas-cloud {
+    animation plasma-flow {
+        duration: 10s
+        easing: ease-in-out
+        keyframes {
+            0% { 
+                position: (r:30, θ:π/2, φ:0)
+                emission: [0.8, 0.2, 0.1]
+            }
+            25% { 
+                position: (r:32, θ:π/2, φ:π/2)
+                emission: [0.9, 0.4, 0.2]
+            }
+            50% { 
+                position: (r:30, θ:π/2, φ:π)
+                emission: [0.7, 0.1, 0.3]
+            }
+            75% { 
+                position: (r:28, θ:π/2, φ:3π/2)
+                emission: [0.8, 0.3, 0.1]
+            }
+            100% { 
+                position: (r:30, θ:π/2, φ:0)
+                emission: [0.8, 0.2, 0.1]
+            }
+        }
+    }
+    
+    animation plasma-pulse {
+        duration: 2s
+        easing: ease-in-out
+        keyframes {
+            0% { scale: (r:1, θ:1, φ:1) }
+            50% { scale: (r:1.3, θ:1.3, φ:1.3) }
+            100% { scale: (r:1, θ:1, φ:1) }
+        }
+    }
+}
+
+/* Particle system dynamics */
+#particle-system {
+    animation particle-flow {
+        duration: 12s
+        easing: ease-in-out
+        keyframes {
+            0% { 
+                position: (r:35, θ:π/3, φ:π/6)
+                scale: (r:1, θ:1, φ:1)
+            }
+            33% { 
+                position: (r:38, θ:π/4, φ:π/3)
+                scale: (r:1.3, θ:0.7, φ:1.2)
+            }
+            66% { 
+                position: (r:32, θ:π/2, φ:2π/3)
+                scale: (r:0.8, θ:1.4, φ:0.9)
+            }
+            100% { 
+                position: (r:35, θ:π/3, φ:π/6)
+                scale: (r:1, θ:1, φ:1)
+            }
+        }
+    }
+    
+    animation particle-dissolve {
+        duration: 8s
+        easing: ease-in-out
+        keyframes {
+            0% { albedo: [0.5, 0.5, 0.5, 0.3] }
+            50% { albedo: [0.3, 0.3, 0.3, 0.1] }
+            100% { albedo: [0.5, 0.5, 0.5, 0.3] }
+        }
+    }
+}
+
+/* Environment lighting */
+environment {
+    lighting {
+        ambient {
+            intensity: 0.3
+            color: [0.1, 0.1, 0.2]
+        }
+        directional {
+            direction: (r:1, θ:π/4, φ:π/4)
+            intensity: 0.8
+            color: [1.0, 0.95, 0.8]
+        }
+        point {
+            position: (r:40, θ:π/6, φ:π/2)
+            intensity: 0.5
+            color: [0.8, 0.6, 0.4]
+        }
+    }
+    
+    atmosphere {
+        density: 0.1
+        scattering: 0.3
+        absorption: 0.1
+    }
+}
+
+/* Performance optimizations */
+optimization {
+    4-corner-optimization {
+        enabled: true
+        precision: 1e-10
+    }
+    
+    adaptive-quality {
+        enabled: true
+        target-fps: 60
+        min-quality: 0.25
+        max-quality: 1.25
+    }
+    
+    spatial-indexing {
+        enabled: true
+        grid-size: 10
+    }
+    
+    parallel-rendering {
+        enabled: true
+        worker-count: auto
+    }
+}
+
+/* Matter state transitions */
+matter-state solid {
+    density: 2700
+    temperature: 293.15
+    pressure: 101325
+    thermal-conductivity: 200
+    thermal-expansion: 2.3e-5
+}
+
+matter-state liquid {
+    density: 1000
+    temperature: 298.15
+    pressure: 101325
+    viscosity: 0.001
+    surface-tension: 0.072
+}
+
+matter-state gas {
+    density: 1.2
+    temperature: 300
+    pressure: 101325
+    compressibility: 1.0
+    diffusion-coefficient: 1e-5
+}
+
+matter-state plasma {
+    density: 0.1
+    temperature: 5000
+    pressure: 50000
+    ionization: 0.8
+    conductivity: 1e6
+} 

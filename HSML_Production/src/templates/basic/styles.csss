@@ -1,0 +1,227 @@
+/* HSML Basic Template Styles */
+
+/* Global viewport styling */
+hsml-viewport {
+    background: radial-gradient(#000033, #000000);
+    fog: exponential;
+    fog-density: 0.0001;
+    steradian-culling: 0.0001;
+    viewer-distance: 650mm;
+    coordinate-system: spherical;
+    physics-engine: enabled;
+    performance-target: 60fps;
+}
+
+/* Material definitions */
+.glowing {
+    material-type: plasma;
+    density: 1000;
+    elasticity: 0.8;
+    friction: 0.1;
+    roughness: 0.2;
+    color: #00ffff;
+    behavior: plasma-physics;
+    collision-detection: enabled;
+    gravitational-field: enabled;
+    melting-point: 5000K;
+    thermal-conductivity: 50;
+    sound-velocity: 8000;
+    glow-intensity: 1.0;
+    glow-radius: 100deg;
+    glow-color: #00ffff;
+    emission-spectrum: cyan;
+    plasma-frequency: 1e15;
+    magnetic-field: enabled;
+    electric-field: enabled;
+}
+
+/* Interactive sphere styling */
+#welcome-sphere {
+    r: 200;
+    theta: 1.57rad;
+    phi: 0;
+    radius: 50;
+    material: glowing;
+    atmosphere: enabled;
+    atmosphere-density: 0.3;
+    atmosphere-color: #00ffff;
+    atmosphere-height: 200km;
+    gravitational-field: enabled;
+    mass: 1e24;
+    
+    /* Hover effects */
+    hover-scale: 1.2;
+    hover-color: #ffffff;
+    hover-glow: 1.5;
+    
+    /* Click effects */
+    click-explosion: enabled;
+    explosion-force: 1000;
+    explosion-particles: 100;
+    explosion-color: #ff00ff;
+    
+    /* Animation */
+    animation: pulse 2s ease-in-out infinite;
+    transform-origin: spherical(0, 0, 0);
+}
+
+/* Text styling */
+#welcome-text {
+    r: 300;
+    theta: 1.0rad;
+    phi: 0;
+    font-size: 16deg;
+    color: #ffffff;
+    glow: enabled;
+    glow-color: #00ffff;
+    glow-intensity: 0.8;
+    text-shadow: 0 0 10px #00ffff;
+    behavior: interactive;
+    hover-effect: scale;
+    hover-scale: 1.1;
+    hover-color: #ffffff;
+}
+
+#info-text {
+    r: 350;
+    theta: 1.2rad;
+    phi: 0;
+    font-size: 8deg;
+    color: #cccccc;
+    behavior: interactive;
+    hover-effect: fade;
+    hover-opacity: 1.0;
+}
+
+/* Lighting configuration */
+#main-light {
+    r: 0;
+    theta: 0;
+    phi: 0;
+    intensity: 1.0;
+    color: #ffffff;
+    cast-shadows: enabled;
+    shadow-quality: high;
+    shadow-softness: 0.5;
+    shadow-distance: 1000;
+}
+
+#ambient-light {
+    intensity: 0.3;
+    color: #444444;
+}
+
+/* Particle system styling */
+#ambient-particles {
+    r: 100;
+    theta: 0;
+    phi: 0;
+    particle-count: 500;
+    emission-rate: 5;
+    particle-lifetime: 3s;
+    particle-velocity: spherical;
+    particle-color: #ffffff;
+    particle-size: 0.05deg;
+    behavior: ambient;
+    particle-trail: enabled;
+    trail-length: 10;
+    trail-color: #ffffff;
+    trail-opacity: 0.3;
+}
+
+/* Responsive design */
+@media (viewer-distance: < 500mm) {
+    #welcome-text {
+        font-size: calc(var(--base-size) * 0.8);
+    }
+    
+    #info-text {
+        font-size: calc(var(--base-size) * 0.6);
+    }
+    
+    #welcome-sphere {
+        radius: calc(var(--base-radius) * 0.8);
+    }
+}
+
+@media (steradian-density: < 0.001) {
+    #ambient-particles {
+        particle-count: calc(var(--base-count) * 0.5);
+    }
+    
+    #welcome-sphere {
+        detail-level: low;
+        lod-bias: -1;
+    }
+}
+
+/* Keyframe animations */
+@keyframes pulse {
+    0% { 
+        scale: 1.0;
+        glow-intensity: 1.0;
+    }
+    50% { 
+        scale: 1.1;
+        glow-intensity: 1.5;
+    }
+    100% { 
+        scale: 1.0;
+        glow-intensity: 1.0;
+    }
+}
+
+@keyframes float {
+    0% { 
+        r: 200;
+        transform: translate(0, 0);
+    }
+    50% { 
+        r: 220;
+        transform: translate(0, -10deg);
+    }
+    100% { 
+        r: 200;
+        transform: translate(0, 0);
+    }
+}
+
+@keyframes rotate {
+    0% { 
+        transform: rotate(0deg);
+    }
+    100% { 
+        transform: rotate(360deg);
+    }
+}
+
+/* Matter state transitions */
+@keyframes solid-to-liquid {
+    0% { 
+        matter-state: solid;
+        temperature: 273K;
+    }
+    50% { 
+        matter-state: liquid;
+        temperature: 373K;
+    }
+    100% { 
+        matter-state: gas;
+        temperature: 473K;
+    }
+}
+
+@keyframes liquid-to-plasma {
+    0% { 
+        matter-state: liquid;
+        temperature: 373K;
+    }
+    50% { 
+        matter-state: gas;
+        temperature: 1000K;
+    }
+    100% { 
+        matter-state: plasma;
+        temperature: 5000K;
+    }
+} 

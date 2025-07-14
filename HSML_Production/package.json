@@ -1,0 +1,139 @@
+{
+  "name": "@hsml/framework",
+  "version": "1.0.0",
+  "description": "HSML Framework - Revolutionary 3D Web Development with Pure Spherical Mathematics",
+  "main": "dist/index.js",
+  "type": "module",
+  "bin": {
+    "hsml": "./dist/cli/hsml-cli.js"
+  },
+  "scripts": {
+    "dev": "hsml dev",
+    "build": "hsml build",
+    "test": "hsml test",
+    "deploy": "hsml deploy",
+    "benchmark": "hsml benchmark",
+    "docs": "hsml docs",
+    "clean": "rimraf dist build",
+    "lint": "eslint src/**/*.ts",
+    "lint:fix": "eslint src/**/*.ts --fix",
+    "type-check": "tsc --noEmit",
+    "prepublishOnly": "npm run clean && npm run build",
+    "postinstall": "node scripts/postinstall.js"
+  },
+  "keywords": [
+    "hsml",
+    "3d",
+    "spherical",
+    "webgl",
+    "webgpu",
+    "physics",
+    "stereadian",
+    "dom",
+    "framework",
+    "typescript"
+  ],
+  "author": "HSML Framework Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hsml-framework/hsml.git"
+  },
+  "bugs": {
+    "url": "https://github.com/hsml-framework/hsml/issues"
+  },
+  "homepage": "https://hsml.dev",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "dependencies": {
+    "@hsml/core": "^1.0.0",
+    "@hsml/runtime": "^1.0.0",
+    "@hsml/math": "^1.0.0",
+    "commander": "^11.0.0",
+    "chokidar": "^3.5.3",
+    "ws": "^8.14.2",
+    "webpack": "^5.88.0",
+    "webpack-cli": "^5.1.4",
+    "ts-loader": "^9.4.4",
+    "terser-webpack-plugin": "^5.3.9",
+    "css-loader": "^6.8.1",
+    "style-loader": "^3.3.3",
+    "file-loader": "^6.2.0",
+    "url-loader": "^4.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.5.0",
+    "@types/ws": "^8.5.5",
+    "@typescript-eslint/eslint-plugin": "^6.4.0",
+    "@typescript-eslint/parser": "^6.4.0",
+    "eslint": "^8.47.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "prettier": "^3.0.2",
+    "rimraf": "^5.0.1",
+    "typescript": "^5.1.6",
+    "jest": "^29.6.2",
+    "@types/jest": "^29.5.4",
+    "ts-jest": "^29.1.1",
+    "jest-environment-jsdom": "^29.6.2",
+    "nyc": "^15.1.0",
+    "@types/nyc": "^15.0.0"
+  },
+  "peerDependencies": {
+    "typescript": ">=5.0.0"
+  },
+  "optionalDependencies": {
+    "emscripten": "^3.1.45"
+  },
+  "files": [
+    "dist/**/*",
+    "src/**/*",
+    "docs/**/*",
+    "examples/**/*",
+    "LICENSE",
+    "README.md"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./runtime": {
+      "import": "./dist/runtime/index.js",
+      "require": "./dist/runtime/index.cjs"
+    },
+    "./math": {
+      "import": "./dist/math/index.js",
+      "require": "./dist/math/index.cjs"
+    },
+    "./cli": {
+      "import": "./dist/cli/index.js",
+      "require": "./dist/cli/index.cjs"
+    }
+  },
+  "types": "./dist/index.d.ts",
+  "typeVersions": {
+    "*": {
+      "runtime": ["./dist/runtime/index.d.ts"],
+      "math": ["./dist/math/index.d.ts"],
+      "cli": ["./dist/cli/index.d.ts"]
+    }
+  },
+  "config": {
+    "hsml": {
+      "defaultTarget": "webgl",
+      "defaultOptimization": 3,
+      "devServerPort": 3000,
+      "devServerHost": "localhost"
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/hsml-framework"
+  }
+} 

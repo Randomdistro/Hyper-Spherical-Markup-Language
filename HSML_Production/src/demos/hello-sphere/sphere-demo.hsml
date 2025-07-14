@@ -1,0 +1,265 @@
+<!-- HSML Framework Demo - Rotating Sphere with Physics -->
+<!-- This demo showcases the revolutionary spherical coordinate web framework -->
+
+<element id="demo-container" position="(r:0, θ:0, φ:0)">
+    <!-- Main rotating sphere with metallic material -->
+    <element id="main-sphere" position="(r:15, θ:π/4, φ:π/2)" material="metallic" behavior="physics">
+        <sphere radius="8" />
+        <material>
+            albedo: [0.8, 0.6, 0.2, 1.0]
+            metallic: 0.9
+            roughness: 0.1
+            emission: [0.1, 0.1, 0.2]
+            matter-state: solid
+        </material>
+        <behavior>
+            physics {
+                force gravity {
+                    magnitude: 9.81
+                    direction: (r:1, θ:0, φ:0)
+                }
+                constraint spherical_surface {
+                    radius: 15
+                }
+                matter-state solid {
+                    density: 2700
+                    temperature: 293.15
+                    pressure: 101325
+                }
+            }
+            animation rotate {
+                duration: 4s
+                easing: ease-in-out
+                keyframes {
+                    0% { rotation: (r:0, θ:0, φ:0) }
+                    50% { rotation: (r:0, θ:π, φ:π) }
+                    100% { rotation: (r:0, θ:0, φ:2π) }
+                }
+            }
+        </behavior>
+    </element>
+
+    <!-- Orbiting satellite sphere -->
+    <element id="satellite" position="(r:25, θ:π/3, φ:π/4)" material="emissive" behavior="orbit">
+        <sphere radius="3" />
+        <material>
+            albedo: [0.2, 0.8, 0.9, 1.0]
+            metallic: 0.1
+            roughness: 0.8
+            emission: [0.3, 0.7, 0.9]
+            matter-state: solid
+        </material>
+        <behavior>
+            physics {
+                force centripetal {
+                    magnitude: 2.5
+                    direction: (r:1, θ:π/2, φ:0)
+                }
+                constraint orbital_path {
+                    radius: 25
+                    center: (r:0, θ:0, φ:0)
+                }
+            }
+            animation orbit {
+                duration: 8s
+                easing: linear
+                keyframes {
+                    0% { position: (r:25, θ:π/3, φ:0) }
+                    25% { position: (r:25, θ:π/3, φ:π/2) }
+                    50% { position: (r:25, θ:π/3, φ:π) }
+                    75% { position: (r:25, θ:π/3, φ:3π/2) }
+                    100% { position: (r:25, θ:π/3, φ:2π) }
+                }
+            }
+        </behavior>
+    </element>
+
+    <!-- Liquid sphere demonstrating matter state transitions -->
+    <element id="liquid-sphere" position="(r:20, θ:π/6, φ:π)" material="liquid" behavior="fluid-dynamics">
+        <sphere radius="5" />
+        <material>
+            albedo: [0.1, 0.7, 0.9, 0.8]
+            metallic: 0.0
+            roughness: 0.2
+            emission: [0.0, 0.2, 0.4]
+            matter-state: liquid
+        </material>
+        <behavior>
+            physics {
+                force gravity {
+                    magnitude: 9.81
+                    direction: (r:1, θ:0, φ:0)
+                }
+                fluid-dynamics {
+                    viscosity: 0.001
+                    surface-tension: 0.072
+                    density: 1000
+                }
+                matter-state liquid {
+                    density: 1000
+                    temperature: 298.15
+                    pressure: 101325
+                }
+            }
+            animation flow {
+                duration: 6s
+                easing: ease-in-out
+                keyframes {
+                    0% { 
+                        position: (r:20, θ:π/6, φ:π)
+                        scale: (r:1, θ:1, φ:1)
+                    }
+                    50% { 
+                        position: (r:22, θ:π/4, φ:3π/2)
+                        scale: (r:1.2, θ:0.8, φ:1.1)
+                    }
+                    100% { 
+                        position: (r:20, θ:π/6, φ:π)
+                        scale: (r:1, θ:1, φ:1)
+                    }
+                }
+            }
+        </behavior>
+    </element>
+
+    <!-- Gas cloud demonstrating plasma transitions -->
+    <element id="gas-cloud" position="(r:30, θ:π/2, φ:0)" material="plasma" behavior="plasma-dynamics">
+        <sphere radius="12" />
+        <material>
+            albedo: [0.9, 0.3, 0.1, 0.6]
+            metallic: 0.0
+            roughness: 1.0
+            emission: [0.8, 0.2, 0.1]
+            matter-state: plasma
+        </material>
+        <behavior>
+            physics {
+                force electromagnetic {
+                    magnitude: 5.0
+                    direction: (r:0, θ:1, φ:0)
+                }
+                plasma-dynamics {
+                    temperature: 5000
+                    pressure: 50000
+                    ionization: 0.8
+                }
+                matter-state plasma {
+                    density: 0.1
+                    temperature: 5000
+                    pressure: 50000
+                }
+            }
+            animation plasma-flow {
+                duration: 10s
+                easing: ease-in-out
+                keyframes {
+                    0% { 
+                        position: (r:30, θ:π/2, φ:0)
+                        emission: [0.8, 0.2, 0.1]
+                    }
+                    25% { 
+                        position: (r:32, θ:π/2, φ:π/2)
+                        emission: [0.9, 0.4, 0.2]
+                    }
+                    50% { 
+                        position: (r:30, θ:π/2, φ:π)
+                        emission: [0.7, 0.1, 0.3]
+                    }
+                    75% { 
+                        position: (r:28, θ:π/2, φ:3π/2)
+                        emission: [0.8, 0.3, 0.1]
+                    }
+                    100% { 
+                        position: (r:30, θ:π/2, φ:0)
+                        emission: [0.8, 0.2, 0.1]
+                    }
+                }
+            }
+        </behavior>
+    </element>
+
+    <!-- Particle system demonstrating 4-corner optimization -->
+    <element id="particle-system" position="(r:35, θ:π/3, φ:π/6)" material="particle" behavior="particle-dynamics">
+        <sphere radius="15" />
+        <material>
+            albedo: [0.5, 0.5, 0.5, 0.3]
+            metallic: 0.0
+            roughness: 0.5
+            emission: [0.2, 0.2, 0.2]
+            matter-state: gas
+        </material>
+        <behavior>
+            physics {
+                force random {
+                    magnitude: 2.0
+                    direction: random
+                }
+                particle-dynamics {
+                    particle-count: 1000
+                    spread-radius: 15
+                    lifetime: 5.0
+                }
+                matter-state gas {
+                    density: 1.2
+                    temperature: 300
+                    pressure: 101325
+                }
+            }
+            animation particle-flow {
+                duration: 12s
+                easing: ease-in-out
+                keyframes {
+                    0% { 
+                        position: (r:35, θ:π/3, φ:π/6)
+                        scale: (r:1, θ:1, φ:1)
+                    }
+                    33% { 
+                        position: (r:38, θ:π/4, φ:π/3)
+                        scale: (r:1.3, θ:0.7, φ:1.2)
+                    }
+                    66% { 
+                        position: (r:32, θ:π/2, φ:2π/3)
+                        scale: (r:0.8, θ:1.4, φ:0.9)
+                    }
+                    100% { 
+                        position: (r:35, θ:π/3, φ:π/6)
+                        scale: (r:1, θ:1, φ:1)
+                    }
+                }
+            }
+        </behavior>
+    </element>
+</element>
+
+<!-- Global lighting and environment -->
+<environment>
+    <lighting>
+        ambient {
+            intensity: 0.3
+            color: [0.1, 0.1, 0.2]
+        }
+        directional {
+            direction: (r:1, θ:π/4, φ:π/4)
+            intensity: 0.8
+            color: [1.0, 0.95, 0.8]
+        }
+        point {
+            position: (r:40, θ:π/6, φ:π/2)
+            intensity: 0.5
+            color: [0.8, 0.6, 0.4]
+        }
+    </lighting>
+    <atmosphere {
+        density: 0.1
+        scattering: 0.3
+        absorption: 0.1
+    }
+</environment>
+
+<!-- Performance optimization settings -->
+<optimization>
+    <4-corner-optimization enabled="true" />
+    <adaptive-quality enabled="true" target-fps="60" />
+    <spatial-indexing enabled="true" />
+    <parallel-rendering enabled="true" />
+</optimization> 
